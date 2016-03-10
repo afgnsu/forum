@@ -1,0 +1,58 @@
+<div class='panel panel-default'>
+<div class='panel-heading'><h3><%= @post.title %></h3><h5>作者：<%= @post.owner.name %></h5></div>
+  <div class='panel-body'><%= sanitize @post.content %></div>
+</div>
+
+ <div class='row'>
+   <div class='col-md-12'>
+
+<table class='table table-hover'>
+<colgroup>
+  <col class="col-md-1">
+  <col class="col-md-6">
+  <col class="col-md-1">
+  <col class="col-md-2">
+  <col class="col-md-2">
+</colgroup>
+<tr bgcolor='#CECECE'><th>No.</th><th>訪客留言</th><th>作者</th><th>留言時間</th><th>操作</th></tr>
+<% @comments.each_with_index do |comment,index| %>
+<tr><td><%= index+1 %></td>
+<td><%= sanitize comment.content %></td>
+<td><%= comment.owner.name %></td>
+<td><%= comment.created_at.strftime("%b %d, %Y %H:%M") %></td>
+
+<td>
+  <%= link_to '詳細', group_post_comment_path(@group,@post,comment.id), class: 'btn btn-xs btn-success' %>
+
+  <% if current_user && comment.editable_by?(current_user) %>
+  <% if can? :update, Comment %>
+    <%= link_to '編輯', edit_group_post_comment_path(@group,@post,comment.id), class: 'btn btn-xs btn-warning' %>
+  <% end %>
+  <% end %>
+
+  <% if can? :destroy, Comment %>
+    <%= link_to '刪除', group_post_comment_path(@group,@post,comment.id), method: :delete, data: { confirm: '確定要刪除嗎？' }, class: 'btn btn-xs btn-danger' %></td></tr>
+  <% end %>
+<% end %>
+</table>
+
+  </div>
+  </div>
+
+<%= paginate @comments %><br>
+
+<% if can? :create, Comment %>
+  <%= link_to '新增留言', new_group_post_comment_path(@group,@post,@comment), class: 'btn btn-lg btn-success' %>
+<% end %>
+<hr>
+
+<% if current_user && @post.editable_by?(current_user) %>
+<% if can? :update, Post %>
+  <%= link_to '編輯', edit_group_post_path(@group,@post), class: 'btn btn-lg btn-primary' %>
+<% end %>
+<% end %>
+
+<% if can? :destroy, Post %>
+  <%= link_to '刪除', group_post_path(@group,@post), method: :delete, data: { confirm: '確定要刪除嗎？' }, class: 'btn btn-lg btn-danger' %>
+<% end %>
+<%= link_to '回上頁', group_path(@group), class: 'btn btn-lg btn-default' %>

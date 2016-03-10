@@ -1,0 +1,23 @@
+<%= form_for(@group) do |f| %>
+  <% if @group.errors.any? %>
+    <div id="error_explanation">
+      <h2>請修正 <%= @group.errors.count %> 項錯誤！</h2>
+
+      <ul>
+      <% @group.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name, '群組名稱' %><br>
+    <%= f.text_field :name %>
+  </div>
+  <br>
+  <div class="actions">
+    <%= f.submit '送出', class: 'btn btn-lg btn-primary' %>
+    <%= link_to '回上頁', groups_path, class: 'btn btn-lg btn-default' %>
+  </div>
+<% end %>

@@ -1,0 +1,28 @@
+<%# form_for(@comment) do |f| %>
+<%= bootstrap_form_for([@group,@post,@comment]) do |f| %>
+  <% if @comment.errors.any? %>
+    <div id="error_explanation">
+      <h2>請修正 <%= @comment.errors.count %> 項錯誤！</h2>
+
+      <ul>
+      <% @comment.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="row">
+    <div class='col-lg-12'>
+      <%# f.text_area :content, label: '留言' %>
+      <%= f.kindeditor :content, label: '留言' %>
+    </div>
+    <div class='col-lg-12'>
+    <br>
+    <%= f.hidden_field :group_id, value: @comment.post.group_id %>
+    <%= f.hidden_field :post_id, value: @comment.post_id %>
+    <%= f.submit '送出', class: 'btn btn-lg btn-primary' %>
+    <%= link_to '回上頁', group_post_path(@group,@post), class: 'btn btn-lg btn-default' %>
+    </div>
+  </div>
+<% end %>

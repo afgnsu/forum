@@ -1,0 +1,10 @@
+
+<div class='panel panel-default'>
+  <div class='panel-heading'><h3><%= @post.title %></h3></div>
+  <div class='panel-body'><%= sanitize @comment.content %></div>
+</div>
+
+<% if can? :update, Comment %>
+  <%= link_to '編輯', edit_group_post_comment_path(@group,@post,@comment), class: 'btn btn-lg btn-primary' %>
+<% end %>
+<%= link_to '回上頁', group_post_path(@group,@post), class: 'btn btn-lg btn-default' %>

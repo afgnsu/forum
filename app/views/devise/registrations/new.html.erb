@@ -1,0 +1,35 @@
+<h2>用戶註冊</h2>
+
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+  <%= devise_error_messages! %>
+
+  <div class="field">
+    <%= f.label :name, '姓名' %><br />
+    <%= f.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= f.label :email, 'Email信箱' %><br />
+    <%= f.email_field :email, autofocus: true %>
+  </div>
+
+  <div class="field">
+    <%= f.label :password, '密碼' %>
+    <% if @minimum_password_length %>
+    <em>(最少 <%= @minimum_password_length %> 個字)</em>
+    <% end %><br />
+    <%= f.password_field :password, autocomplete: "off" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :password_confirmation, '確認密碼' %><br />
+    <%= f.password_field :password_confirmation, autocomplete: "off" %>
+  </div>
+
+  <br>
+  <div class="actions">
+    <%= f.submit "送出", class: 'btn btn-lg btn-primary' %>
+<%= render "devise/shared/links" %>
+  </div>
+<% end %>
+

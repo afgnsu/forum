@@ -1,0 +1,29 @@
+<h1>群組列表</h1>
+
+<table class="table table-hover">
+  <thead>
+    <tr bgcolor='#EDEDED'><th>No</th><th>群組名稱</th><th>文章數量</th><th>操作</th></tr>
+  </thead>
+
+  <tbody>
+    <% @groups.each_with_index do |group,index| %>
+      <tr><td><%= index+1 %></td>
+        <td width='70%'><%= link_to(group.name, group_path(group)) %></td>
+        <td><span class='badge'><%= group.posts_count %></span></td>
+        <td>
+          <% if can? :destroy, Group %>
+            <%= link_to '修改', edit_group_path(group), class: 'btn btn-xs btn-warning' %>
+          <% end %>
+          <% if can? :destroy, Group %>
+            <%= link_to '刪除', group, method: :delete, data: { confirm: '確定要刪除？' }, class: 'btn btn-xs btn-danger' %></td>
+          <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<br>
+<% if current_user && current_user.role.name == 'Admin' %>
+<% if can? :create, Group %>
+  <%= link_to '新增群組', new_group_path, class: 'btn btn-lg btn-primary' %>
+<% end %>
+<% end %>

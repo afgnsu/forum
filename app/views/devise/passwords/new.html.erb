@@ -1,0 +1,17 @@
+<h2>忘記密碼</h2>
+
+<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+  <%= devise_error_messages! %>
+
+  <div class="field">
+    <%= f.label :email, 'Email信箱' %><br />
+    <%= f.email_field :email, autofocus: true %>
+  </div>
+
+  <br>
+  <div class="actions">
+    <%= f.submit "送出", class: 'btn btn-lg btn-primary' %>
+    <%= render "devise/shared/links" %>
+  </div>
+<% end %>
+

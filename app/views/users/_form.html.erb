@@ -1,0 +1,35 @@
+<%= form_for(@user) do |f| %>
+  <% if @user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+      <ul>
+      <% @user.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name, '姓名' %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :email, '電郵' %><br>
+    <%= f.text_field :email, :autocomplete => :off %>
+  </div>
+  <div class="field">
+    <%= f.label :role_id, '角色' %><br>
+    <%= collection_select(:user, :role_id, Role.all, :id, :name, prompt: true) %>
+  </div>
+  <div class="field">
+    <%= f.label :password, '密碼 (最少8個字)' %><br>
+    <%= f.password_field :password, placeholder: "Leave blank if unchanged" %>
+  </div>
+  <br>
+  <div class="actions">
+    <%= f.submit '送出', class: 'btn btn-lg btn-primary' %>
+<%= link_to '回上頁', users_path, class: 'btn btn-lg btn-default' %>
+  </div>
+<% end %>

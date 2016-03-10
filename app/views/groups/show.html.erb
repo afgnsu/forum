@@ -1,0 +1,24 @@
+<div class="jumbotron">
+  <font class="h1"><%= @group.name %></font>
+</div>
+
+<table class='table table-hover'>
+<thead>
+  <tr><td width='20'>No.</td><td>文章標題</td><td>作者</td><td>發表日期</td><td>留言數</td></tr>
+</thead>
+<tbody>
+<% @posts.each_with_index do |post,index| %>
+<tr><td><%= index+1 %></td>
+    <td width='60%'><%= link_to(truncate(post.title, length: 36, ommision: '...'), group_post_path(post.group, post)) %></td>
+    <td><%= post.owner.name %></td>
+    <td><%= post.created_at.strftime("%b %d, %Y %H:%M") %></td>
+    <td><span class='badge'><%= post.comments_count %></span></td></tr>
+<% end %>
+</tbody>
+</table>
+<%= paginate @posts %>
+<br>
+<% if can? :create, Post %>
+  <%= link_to '新增文章', new_group_post_path(@group), class: 'btn btn-lg btn-primary' %>
+<% end %>
+<%= link_to '回首頁', root_path, class: 'btn btn-lg btn-default' %>

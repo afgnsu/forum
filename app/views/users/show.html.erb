@@ -1,0 +1,13 @@
+<div class='col-lg-6 col-lg-offset-3'>
+<table class='table table-hover'>
+<tr><td><strong>姓名：</strong></td><td><%= @user.name %></td></tr>
+<tr><td><strong>電郵：</td><td><%= @user.email %></td></tr>
+<tr><td><strong>角色：</strong></td><td><%= @user.role.name %></td></tr>
+<tr><td><strong>創見時間：</strong></td><td><%= @joined_on %></td></tr>
+<tr><td><strong>上次登入：</strong></td><td><%= @last_login %></td></tr>
+<tr><td><strong>登入次數：</strong></td><td><%= @user.sign_in_count %></td></tr>
+</table>
+
+<%= link_to '編輯', edit_user_path(@user), class: 'btn btn-lg btn-primary' %>
+<%= link_to '回上頁', users_path, class: 'btn btn-lg btn-default' %>
+</div>
